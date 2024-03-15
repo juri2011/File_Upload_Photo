@@ -2,6 +2,7 @@ package common;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,6 +25,17 @@ public class DBConnPool {
 			
 		} catch (Exception e) {
 			System.out.println("Connection Pool 연결 실패");
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void close() {
+		try {
+			if(pstmt != null) pstmt.close();
+			if(con != null) con.close();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
