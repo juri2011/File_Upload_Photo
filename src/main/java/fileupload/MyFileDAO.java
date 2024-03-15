@@ -10,6 +10,7 @@ public class MyFileDAO extends DBConnPool{
 				+ "VALUES ("
 				+ "seq_board_num.nextval, ?, ?, ?, ?, ?)";
 		
+		pstmt = con.
 		
 		return applyResult;
 	}
