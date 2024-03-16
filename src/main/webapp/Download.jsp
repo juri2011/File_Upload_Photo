@@ -12,9 +12,6 @@
 	String saveFilename = request.getParameter("sName");
 	String originalFilename = request.getParameter("oName");
 	
-		
-	
-	
 	try{
 		File file = new File(saveDirectory, saveFilename);
 		InputStream inStream = new FileInputStream(file);
@@ -28,6 +25,10 @@
 			originalFilename = new String(originalFilename.getBytes("UTF-8"),
 											"ISO-8859-1");
 		}else{
+			/*
+				익스플로러는 KSC5601을 이용하여 바이트 배열로 변환하고 문자열을 재생성하는 방식으로
+				한글을 처리한다. (웹브라우저에 따라 한글 처리 방식이 다르다.)
+			*/
 			originalFilename = new String(originalFilename.getBytes("KSC5601"),
 											"ISO-8859-1");
 		}
