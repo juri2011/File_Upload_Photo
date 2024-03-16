@@ -28,16 +28,25 @@ public class UploadProcess extends HttpServlet{
 		//서버의 Uploads 디렉토리의 절대 경로를 받아온다.
 		//이미 Uploads 디렉토리를 만들었는데 물리적 경로가 따로 필요한 이유?
 		// -> OS에 따라 경로를 표현하는 방법이 다르기 때문
-		String saveDirectory = getServletContext().getRealPath("/Uploads");
-		//파일을 업로드하고 이름을 받아온다.
-		String originalFileName = FileUtil.uploadFile(req, saveDirectory);
-		//파일 이름 변경
-		String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
 		
-		insertMyFile(req, originalFileName, savedFileName);
+		//예외 처리(파일 용량 제한 초과 등 에러가 발생했을 때 FileUploadMain.jsp에 오류메시지를 전달하기 위함)
+		try {
+			String saveDirectory = getServletContext().getRealPath("/Uploads");
+			//파일을 업로드하고 이름을 받아온다.
+			String originalFileName = FileUtil.uploadFile(req, saveDirectory);
+			//파일 이름 변경
+			String savedFileName = FileUtil.renameFile(saveDirectory, originalFileName);
+			
+			insertMyFile(req, originalFileName, savedFileName);
+			
+			//FileList.jsp로 이동
+			resp.sendRedirect("FileList.jsp");
+		}catch (Exception e){
+			e.printStackTrace();
+			req.setAttribute("errorMessage", "파일 업로드 오류");
+			req.getRequestDispatcher("FileUploadMain.jsp").forward(req, resp);
+		}
 		
-		//FileList.jsp로 이동
-		resp.sendRedirect("FileList.jsp");
 	}
 	
 	private void insertMyFile(HttpServletRequest req, String oFileName, String sFileName) {

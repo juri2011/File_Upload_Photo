@@ -21,6 +21,7 @@
 </script>
 <body>
 	<h3>파일 업로드</h3>
+	<!-- 파일 업로드에 실패했으면 UploadProcess서블릿에서 가져온 에러메시지를 출력 -->
 	<span style="color: red;">${errorMessage}</span>
 	<!-- onsubmit = "return false"일 경우 submit버튼을 눌러도 action이 가리키는 곳으로 이동할 수 없다. -->
 	<form name="fileForm" method="post" enctype="multipart/form-data"
