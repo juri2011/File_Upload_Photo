@@ -25,7 +25,7 @@
 	<span style="color: red;">${errorMessage}</span>
 	<!-- onsubmit = "return false"일 경우 submit버튼을 눌러도 action이 가리키는 곳으로 이동할 수 없다. -->
 	<form name="fileForm" method="post" enctype="multipart/form-data"
-		action="MultiProcess.do" onsubmit = "return validateForm(this);">
+		action="MultipleProcess.do" onsubmit = "return validateForm(this);">
 		제목 : <input type="text" name="title" /><br />
 		카테고리(선택사항) : 
 			<input type="checkbox" name="cate" value="사진" checked /> 사진
