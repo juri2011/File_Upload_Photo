@@ -34,13 +34,29 @@ public class MyFileDAO extends DBConnPool{
 	public List<MyFileDTO> myFileList(){
 		List<MyFileDTO> fileList = new Vector<MyFileDTO>();
 		
+		//내림차순으로 정렬하여 최신 게시물 먼저 출력
 		String query = "SELECT * FROM myfile ORDER BY idx DESC";
 		try {
+			//정적 쿼리문을 실행할 때는 Statement객체를 사용한다.
 			stmt = con.createStatement();
 			rs = stmt.executeQuery(query);
+			
+			while(rs.next()) {
+				MyFileDTO dto = new MyFileDTO();
+				dto.setIdx(rs.getString(1));
+				dto.setTitle(rs.getString(2));
+				dto.setCate(rs.getString(3));
+				dto.setOfile(rs.getString(4));
+				dto.setSfile(rs.getString(5));
+				dto.setPostdate(rs.getString(6));
+				
+				fileList.add(dto);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return fileList;
 	}
 	
 
