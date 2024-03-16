@@ -1,5 +1,8 @@
 package fileupload;
 
+import java.util.List;
+import java.util.Vector;
+
 import common.DBConnPool;
 
 public class MyFileDAO extends DBConnPool{
@@ -25,6 +28,13 @@ public class MyFileDAO extends DBConnPool{
 		}
 		
 		return applyResult;
+	}
+	
+	public List<MyFileDTO> myFileList(){
+		List<MyFileDTO> fileList = new Vector<MyFileDTO>();
+		
+		String query = "SELECT * FROM myfile ORDER BY idx DESC";
+		
 	}
 	
 
