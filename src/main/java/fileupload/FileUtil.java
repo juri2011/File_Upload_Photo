@@ -3,6 +3,8 @@ package fileupload;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -52,6 +54,30 @@ public class FileUtil {
 		
 		//새 파일의 이름을 반환한다.
 		return newFileName;
+	}
+	
+	public static ArrayList<String> multipleFile(HttpServletRequest req, String sDirectory)
+			throws ServletException, IOException{
+		
+		ArrayList<String> listFileName = new ArrayList<>();
+		Collection<Part> parts = req.getParts();
+		for(Part part : parts) {
+			//form값에서 name이 attachedFile인 것만 처리(첨부한 파일만 저장)
+			if(!part.getName().equals("attachedFile"))
+				continue;
+			
+			String partHeader = part.getHeader("content-disposition");
+			String[] phArr = partHeader.split("filename=");
+			//공백과 쌍따옴표 제거
+			String originalFileName = phArr[1].trim().replace("\"", ""); 
+			
+			//파일 이름이 비어있지 않다면
+			if(!originalFileName.isEmpty()) {
+				part.write(sDirectory+File.separator+originalFileName);
+			}
+			listFileName.add(originalFileName);
+		}
+		return listFileName;
 	}
 	
 }
