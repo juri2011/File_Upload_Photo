@@ -1,5 +1,6 @@
 package fileupload;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 
@@ -34,7 +35,12 @@ public class MyFileDAO extends DBConnPool{
 		List<MyFileDTO> fileList = new Vector<MyFileDTO>();
 		
 		String query = "SELECT * FROM myfile ORDER BY idx DESC";
-		
+		try {
+			stmt = con.createStatement();
+			rs = stmt.executeQuery(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 

@@ -2,6 +2,7 @@ package common;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.naming.Context;
@@ -12,6 +13,7 @@ public class DBConnPool {
 	public Connection con;
 	public PreparedStatement pstmt;
 	public Statement stmt;
+	public ResultSet rs;
 	
 	public DBConnPool() {
 		Context initCtx;
@@ -33,6 +35,7 @@ public class DBConnPool {
 	
 	public void close() {
 		try {
+			if(rs != null) rs.close();
 			if(stmt != null) stmt.close();
 			if(pstmt != null) pstmt.close();
 			if(con != null) con.close();
