@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/FileUpload/UploadProcess.do")
+@WebServlet("/UploadProcess.do")
 // 각 파일 최대 크기 1MB, 전체 파일 최대 크기 10MB
 // annotation을 사용하지 않는다면 web.xml로 설정할 수 있다.
 @MultipartConfig(
@@ -22,6 +22,8 @@ public class UploadProcess extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		System.out.println("ok");
 		
 		//서버의 Uploads 디렉토리의 절대 경로를 받아온다.
 		//이미 Uploads 디렉토리를 만들었는데 물리적 경로가 따로 필요한 이유?

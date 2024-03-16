@@ -15,7 +15,7 @@ public class FileUtil {
 	public static String uploadFile(HttpServletRequest req, String sDirectory) 
 					throws ServletException, IOException{
 		//ofile이라는 name 속성값을 가진 Part 객체를 가져온다.
-		Part part = req.getPart("ofile");
+		Part part = req.getPart("attachedFile");
 		//Part 객체에서 content-disposition 헤더값 읽어오기(name 속성과 파일명이 포함되어있음)
 		String partHeader = part.getHeader("content-disposition");
 		System.out.println(partHeader);
@@ -34,8 +34,11 @@ public class FileUtil {
 	}
 	
 	//파일명 변경
+	//파일명 변경하는 이유? -> 웹 서버의 인코딩 방식에 따라 한글이 깨질 수 있으므로
+	// 인코딩 방식에 상관없이 제대로 표시하려면 파일명을 영문+숫자의 조합으로 하는 것이 안전하다.
 	public static String renameFile(String sDirectory, String fileName) {
 		//확장자 추출
+		//lastIndexOf 쓴 이유? -> 파일명에 점(.)이 2개 이상 포함될 수 있음
 		String ext = fileName.substring(fileName.lastIndexOf("."));
 		//현재날짜_시간
 		String now = new SimpleDateFormat("yyyyMMdd_HmsS").format(new Date());
